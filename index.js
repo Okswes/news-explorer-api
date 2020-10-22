@@ -4,16 +4,16 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const { celebrate, Joi, errors } = require('celebrate');
-const usersRouter = require('./routes/users.js');
-const articlesRouter = require('./routes/articles.js');
+const { usersRouter, articlesRouter } = require('./routes/index.js');
 const auth = require('./middlewares/auth.js');
+const errorChecker = require('./middlewares/errorchecker');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { createUser, login } = require('./controllers/users');
 
 const app = express();
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, DBURL } = process.env;
 
-mongoose.connect('mongodb://localhost:27017/newsdb', {
+mongoose.connect(DBURL, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -24,13 +24,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 
-app.post('/sign-in', celebrate({
+app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().min(2).max(30),
     password: Joi.string().required().min(8),
   }),
 }), login);
-app.post('/sign-up', celebrate({
+app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2),
     email: Joi.string().required().min(2).max(30),
@@ -44,17 +44,7 @@ app.use('/articles/', articlesRouter);
 
 app.use(errorLogger);
 app.use(errors());
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res
-    .status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message,
-    });
-});
+app.use(errorChecker);
 
 app.listen(PORT, () => {
 });

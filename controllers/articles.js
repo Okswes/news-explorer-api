@@ -16,9 +16,9 @@ const deleteArticle = (req, res, next) => {
       if (item.owner.toString() !== req.user._id) {
         throw new AccessError('Вы не можете удалить эту статью');
       }
-      Article.findByIdAndDelete(req.params.id)
-        .then((itemy) => {
-          res.status(200).send(itemy);
+      Article.deleteOne(item)
+        .then(() => {
+          res.status(200).send({ message: 'Cтатья удалена' });
         })
         .catch(next);
     })

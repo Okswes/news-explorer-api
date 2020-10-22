@@ -2,7 +2,8 @@
 
 Это бекэнд для моего дипломного проекта.
 
-http://news-okswes.students.nomoreparties.co/
+http://api.news-okswes.students.nomoreparties.co/
+
 84.201.163.96
 
 
