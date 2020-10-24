@@ -11,9 +11,9 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { createUser, login } = require('./controllers/users');
 
 const app = express();
-const { PORT = 3000, DBURL } = process.env;
+const { PORT = 3000 } = process.env;
 
-mongoose.connect(DBURL, {
+mongoose.connect('mongodb://localhost:27017/newsdb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
