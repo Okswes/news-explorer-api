@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ruslan43G/news-explorer-api.git"
+    "url": "git+https://github.com/Okswes/news-explorer-api.git"
   },
   "author": "Ruslan Tikhomirov",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Ruslan43G/news-explorer-api/issues"
+    "url": "https://github.com/Okswes/news-explorer-api/issues"
   },
-  "homepage": "https://github.com/Ruslan43G/news-explorer-api#readme",
+  "homepage": "https://github.com/Okswes/news-explorer-api#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
