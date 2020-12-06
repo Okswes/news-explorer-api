@@ -2,9 +2,9 @@
 
 Это бекэнд для моего дипломного проекта.
 
-http://api.news-okswes.students.nomoreparties.co/
+http://api.okswes-news.students.nomoreparties.xyz/
 
-84.201.163.96
+84.201.152.36
 
 
 ## Запуск проекта
