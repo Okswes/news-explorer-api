@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/Okswes/news-explorer-api.git"
   },
-  "author": "Ruslan Tikhomirov",
+  "author": "Dmitriy Brovchenko",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Okswes/news-explorer-api/issues"
