@@ -2,17 +2,15 @@
   "name": "news-explorer-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Okswes/news-explorer-api.git"
   },
-  "keywords": [],
   "author": "Dmitriy Brovchenko",
   "license": "ISC",
   "bugs": {
@@ -23,9 +21,8 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "celebrate": "^13.0.3",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.1",
     "express": "^4.17.1",
     "express-winston": "^4.0.5",
     "helmet": "^4.1.1",
@@ -36,6 +33,8 @@
   },
   "devDependencies": {
     "eslint": "^7.11.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
     "nodemon": "^2.0.5"
   }
 }
