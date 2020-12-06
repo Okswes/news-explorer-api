@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const articleSchema = mongoose.Schema({
+const articleSchema = new mongoose.Schema({
   keyword: {
     type: String,
     required: true,
@@ -14,8 +14,8 @@ const articleSchema = mongoose.Schema({
     required: true,
   },
   date: {
-    type: String,
-    required: true,
+    type: Date,
+    default: Date.now,
   },
   source: {
     type: String,
@@ -24,29 +24,18 @@ const articleSchema = mongoose.Schema({
   link: {
     type: String,
     required: true,
-    validate: {
-      validator(v) {
-        return /^((http|https):\/\/)(www\.)?([A-Za-z0-9.-]{1,256})\.[A-Za-z]{2,10}([-a-zA-Z0-9@:%_+.~#?&/=]{1,256})?$/.test(v);
-      },
-      message: 'Введена некорректная ссылка!',
-    },
+    match: [/^((http|https):\/\/)(www\.)?([a-zA-z0-9.-]+)\.([a-zA-z]+)([a-zA-z0-9%$?/.-]+)?(#)?$/, 'Вставьте ссылку на новость'],
   },
   image: {
     type: String,
     required: true,
-    validate: {
-      validator(v) {
-        return /^((http|https):\/\/)(www\.)?([A-Za-z0-9.-]{1,256})\.[A-Za-z]{2,10}([-a-zA-Z0-9@:%_+.~#?&/=]{1,256})?$/.test(v);
-      },
-      message: 'Введена некорректная ссылка!',
-    },
+    match: [/^((http|https):\/\/)(www\.)?([a-zA-z0-9.-]+)\.([a-zA-z]+)([a-zA-z0-9%$?/.-]+)?(#)?$/, 'Вставьте ссылку на картинку'],
   },
   owner: {
-    required: true,
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
-    select: false,
+    required: true,
   },
-}, { versionKey: false });
+});
 
 module.exports = mongoose.model('article', articleSchema);
