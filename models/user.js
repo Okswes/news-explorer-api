@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 const validator = require('validator');
-
-const NotAuthorizedError = require('../errors/not-authorized-error');
+const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
+const WrongUserError = require('../errors/wrong-auth-err.js');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -16,31 +15,33 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     validate: {
-      validator(email) {
-        return validator.isEmail(email);
+      validator(str) {
+        return validator.isEmail(str);
       },
-      message: 'Введён некорректный Email',
+      message: 'Wrong email',
     },
   },
   password: {
     type: String,
     required: true,
+    minlength: 4,
     select: false,
-    minlength: 8,
   },
-}, { versionKey: false });
+});
 
-userSchema.statics.findUserByCredentials = function findUser(email, password) {
+// eslint-disable-next-line func-names
+userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        throw new NotAuthorizedError('Неправильные почта или пароль');
+        throw new WrongUserError('Неправильные почта или пароль');
       }
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
-            throw new NotAuthorizedError('Неправильные почта или пароль');
+            throw new WrongUserError('Неправильные почта или пароль');
           }
+
           return user;
         });
     });
